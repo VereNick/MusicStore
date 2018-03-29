@@ -1,0 +1,88 @@
+﻿@model PagedList.IPagedList<MusicStore2.Models.Instrument>
+@using PagedList.Mvc;
+@*@model MusicStore2.Models.IndexViewModel
+    @using MusicStore2.MyHtmlHelpers*@
+@{
+    ViewBag.Title = "Home Page";
+}
+<table class="table">
+    <tr>
+        <th>
+            Название
+        </th>
+        <th>
+            Описание
+        </th>
+        <th>
+            Изображение
+        </th>
+        <th>
+            Цена
+        </th>
+        <th>
+            Категория
+        </th>
+        <th>
+            Подкатегория
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item2 in Model)
+        {
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Description)
+                </td>
+                <td>
+                    <a href="Instrumental/Details/@item2.Id">
+                        <img src="@item2.ImgUrl" width="200" height="150" />
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.SubCategory)
+                </td>
+                <td>
+
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Изменить", "Edit", "Instrumental", new { id = item2.Id }, null)
+
+                        @Html.ActionLink("Удалить", "Delete", "Instrumental", new { id = item2.Id }, null)
+                    }
+                    @*<a href="~/Instrumental/Details/@item.Id">Подробнее</a>*@
+                    @Html.ActionLink("Подробнее", "Details", "Instrumental", new { id = item2.Id }, null)
+
+                    @*@Html.ActionLink("Удалить","Delete", "Instrumental", item.Id)*@
+                </td>
+            </tr>
+        }
+
+
+    }
+
+</table>
+
+<br />
+ Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), new PagedListRenderOptions { LinkToFirstPageFormat = "<< В начало", LinkToPreviousPageFormat = "< Предыдущий", LinkToNextPageFormat = "Следующий >", LinkToLastPageFormat = "В конец >>" })
+
+@*@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))*@
+
+@*<div class="pagination-sm">
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    </div><br /><br />*@
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1411.8267191291288!2d34.0965145!3d44.9507127!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40eadddc5e3c1513%3A0xf7b2398bc8439e0c!2z0JTQvtC8INCc0YPQt9GL0LrQuA!5e0!3m2!1sru!2s!4v1520860579596" width="1150" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>

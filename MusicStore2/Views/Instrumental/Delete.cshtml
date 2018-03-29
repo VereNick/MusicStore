@@ -1,0 +1,71 @@
+﻿@model MusicStore2.Models.Instrument
+
+@{
+    ViewBag.Title = "Удаление инструмента";
+}
+
+<h2>Удаление инструмента</h2>
+
+<h3>Вы действительно хотите удалить это?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategory)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <input type="submit" value="Удалить" class="btn" /> |
+            @Html.ActionLink("Назад", "Index", "Home")
+        </div>
+    }
+</div>

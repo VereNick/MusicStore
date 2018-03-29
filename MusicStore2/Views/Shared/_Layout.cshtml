@@ -1,0 +1,153 @@
+﻿@using MusicStore2.DataBaseManager
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+
+        .verenick {
+            font-size: medium;
+            left: 1050px;
+            top: -30px;
+            position:absolute;
+        }
+        #slow_nav > ul {
+            width: 500px;
+            margin: 25px auto 0;
+        }
+
+            #slow_nav > ul > li {
+                list-style: none;
+                display: inline-block;
+                position: relative;
+                padding: 0;
+            }
+
+        #slow_nav a {
+            text-decoration: none;
+        }
+
+        #slow_nav > ul > li > a {
+            font-size: 18px;
+            padding: 5px;
+            color: #fff;
+        }
+
+        #slow_nav li ul {
+            position: absolute;
+            list-style: none;
+            text-align: center;
+            top: -15px;
+            font-size: 15px;
+            left: 1050px;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+
+            #slow_nav li ul li {
+                background-color: #333;
+                border-bottom: 1px solid #888;
+            }
+
+                #slow_nav li ul li:last-child {
+                    border-bottom: none;
+                }
+
+                #slow_nav li ul li a {
+                    padding: 5px 12px;
+                    color: #fff;
+                    display: block;
+                }
+
+                #slow_nav li ul :hover {
+                    background-color: #333;
+                }
+
+                #slow_nav li ul li:first-child {
+                    margin-top: 25px;
+                    position: relative;
+                }
+
+                    #slow_nav li ul li:first-child:before {
+                        content: '';
+                        position: absolute;
+                        width: 1px;
+                        height: 1px;
+                        border: 5px solid transparent;
+                        border-bottom-color: #333;
+                        left: 10px;
+                        top: -10px;
+                    }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#slow_nav  ul li').hover(
+                function () {
+                    $('ul', this).stop().slideDown(400);
+                },
+                function () {
+                    $('ul', this).stop().slideUp(400);
+                }
+            );
+        });
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MusicStore</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="shortcut icon" href="~/Content/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("MusicStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    
+                    <nav id="slow_nav">
+                        <ul>
+                            <li>
+                                <a href="#" class="verenick">@PurchaseManager.GetNameByEmail(User.Identity.Name.ToString())</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Выход", "Logoff", "Account", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+            
+                }
+                else
+                {
+                    @Html.ActionLink("Вход", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Регистрация", "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - MusicStore</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
